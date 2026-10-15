@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+._*
+
+# Files over GitHub's 100 MB hard limit — cannot be pushed; keep on SSD
+/Lab4/Lab 4.rar
+/Lab4/Lab 4.zip
+/Lab4/To Solve/RegistryFiles-2/software
+/Activity 1/Tasks/USB1/Target2/VID_20180914_220547.mp4
+
+# Browser-cache forensic dump — binary cache blobs containing third-party Google API keys
+# (flagged by GitHub secret scanning); keep on disk/SSD, do not push
+/Lab6/Compressed_Caches/
+/Lab6/Compressed_Caches.zip

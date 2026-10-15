@@ -1,0 +1,175 @@
+Here is the extracted text from the image, organized cleanly and minimally:
+
+---
+
+# **PESU TraceLabs CTF — Command Reference**
+
+---
+
+## **EVIDENCE SOURCE**
+
+Path: `/home/analyst/ctf/evidence/evidence.dd`
+Load: Autopsy → Add Data Source → Disk Image
+
+---
+
+## **AUTOPSY INGEST MODULES**
+
+* All Files, Directories, and Unallocated Space
+* Email Parser
+* Encryption Detection
+* Interesting Files Identifier
+* Central Repository
+* PhotoRec Carver
+* Virtual Machine Extractor
+* Data Source Integrity
+* GPX Parser
+* Keyword Search
+* Android Analyzer (aLEAPP)
+* Cyber Triage Malware Scanner
+* DJI Drone Analyzer
+* Plaso
+* YARA Analyzer
+* iOS Analyzer (LEAPP)
+
+---
+
+## **FORENSIC TOOLS**
+
+* Autopsy → Desktop → New Case → Add Data Source
+* exiftool → `exiftool filename.jpg`
+* sqlite3 →
+
+  * `.tables`
+  * `SELECT * FROM table;`
+* strings → `strings file | grep "keyword"`
+* hivexsh → `hivexsh file → cd path → lsval`
+* cat/less → `cat file`, `less file`
+* grep → `grep -i "keyword" filename`
+* find → `find /path -name "*.ext"`
+* ls → `ls -la dir/`, `ls -lS dir/`
+
+---
+
+## **SCORING SYSTEM**
+
+* Q1 → 200 pts
+* Q2 → 200 pts
+* Q3 → 200 pts
+* Q4 → 200 pts
+* Q5 → 200 pts
+* Q6 → 200 pts
+* Q7 (Boss) → 1200 pts
+* Hint 1 → -25 pts
+* Hint 2 → -50 pts
+
+---
+
+## **KEY CONSTRUCTION**
+
+Generate a 6-char MD5 key from your answer:
+
+```
+echo -n "ANSWERSEED" | md5sum | cut -c1-6
+```
+
+Returns first 6 hex chars of MD5 hash
+
+---
+
+## **FLAG DECRYPTION**
+
+```
+cat ENCRYPTED_FILE | openssl enc \
+-d -aes-256-cbc -a -pbkdf2 \
+-pass pass:"YOUR_KEY"
+```
+
+Output → `CFL{...}`
+
+---
+
+## **SOLVE WORKFLOW**
+
+1. Read the question clue carefully
+2. Find the reference file in evidence
+3. Use the right forensic tool
+4. Identify the ANSWERSEED to extract
+5. Generate key: `echo -n "..." | md5sum`
+6. Take first 6 chars of hash
+7. Decrypt with openssl command
+8. Submit CFL{...} flag
+
+---
+
+## **USEFUL COMBOS**
+
+**Recursive keyword search**
+
+```
+grep -ri "keyword" /path/
+```
+
+**Find large files**
+
+```
+find . -size +1M -exec ls -lh {} \;
+```
+
+**Extract long strings**
+
+```
+strings -n 8 file | grep -i flag
+```
+
+---
+
+## **FULL SOLVE FORMULA**
+
+```
+KEY=$(echo -n "ANSWER" | md5sum | cut -c1-6) &&
+cat flag.enc | openssl enc -d -aes-256-cbc -a -pbkdf2 -pass pass:$KEY
+```
+
+---
+
+## **PRO TIPS**
+
+* Answers are CASE-SENSITIVE
+* Read the clue — it tells where encrypted flag is
+* Use hints wisely (costly)
+* Check hidden files: `ls -la`
+
+---
+
+## **SQLITE3 QUICK REF**
+
+* `.tables` → List all tables
+* `.schema tbl` → Show table structure
+* `.headers on` → Enable headers
+* `SELECT * FROM tbl;` → Query data
+
+---
+
+## **REGISTRY (HIVEXSH)**
+
+```
+hivexsh NTUSER.DAT
+cd \Software\Microsoft
+ls
+lsval
+```
+
+Hives: SAM, SYSTEM, SOFTWARE, NTUSER.DAT
+
+---
+
+## **EXIFTOOL METADATA**
+
+* All metadata → `exiftool file.jpg`
+* GPS only → `exiftool -gps* file.jpg`
+* Comments → `exiftool -comment file.jpg`
+
+---
+
+If you want, I can condense this further into a one-page cheat sheet optimized for actual CTF solving speed.

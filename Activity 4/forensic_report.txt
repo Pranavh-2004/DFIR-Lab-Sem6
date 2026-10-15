@@ -1,0 +1,268 @@
+================================================================================
+                        DIGITAL FORENSIC INVESTIGATION REPORT
+================================================================================
+
+Case ID       : DFIR-2026-004
+Case Name     : System Compromise Investigation
+Date          : 2026-04-16
+Analyst       : Pranav Hemanth
+Classification: Confidential
+
+================================================================================
+1. OBJECTIVE
+================================================================================
+
+The objective of this investigation is to analyze a reported system compromise
+on a user machine. The user reported abnormal system behaviour including
+slowness and unknown pop-ups after downloading an email attachment. This report
+documents the analysis of collected evidence, identifies the nature of the
+attack, and provides recommendations to prevent recurrence.
+
+================================================================================
+2. EVIDENCE DESCRIPTION
+================================================================================
+
+The following evidence files were examined during this investigation:
+
+  1. system_log.txt  - System event log capturing timestamped activity on the
+                       compromised machine on 2026-03-05.
+
+  2. file_info.txt   - Metadata and hash information for a suspicious executable
+                       file (update.exe) found on the system.
+
+  3. user_report.txt - First-hand account provided by the affected user
+                       describing events observed before and after the incident.
+
+All evidence files were received in their original, unmodified form and handled
+in accordance with digital forensic best practices to preserve integrity.
+
+================================================================================
+3. TOOLS USED
+================================================================================
+
+  Tool                  Purpose
+  -------               -------------------------------------------------------
+  Text Editor / CLI     Manual review of log files and user report
+  MD5 Hash Verification Verification of file integrity and cross-referencing
+                        hash against known malware databases
+  WHOIS / IP Lookup     Identification of suspicious external IP address
+                        (185.234.217.55)
+  VirusTotal (ref.)     Hash lookup for update.exe to check malware signatures
+
+================================================================================
+4. METHODOLOGY
+================================================================================
+
+  Step 1 - Evidence Collection
+    All three evidence files were collected and preserved without modification.
+    A chain of custody was maintained throughout the investigation.
+
+  Step 2 - Log Analysis
+    system_log.txt was reviewed line by line to identify anomalous events,
+    failed authentication attempts, suspicious file activity, and unauthorised
+    network connections.
+
+  Step 3 - File Examination
+    file_info.txt was examined to extract metadata (filename, type, size,
+    source URL, and MD5 hash) for the suspicious file update.exe.
+
+  Step 4 - User Statement Review
+    user_report.txt was analysed to correlate the user's observations with
+    events recorded in the system log.
+
+  Step 5 - Event Correlation
+    Events across all three sources were correlated by timestamp and context
+    to reconstruct the attack timeline.
+
+  Step 6 - Attack Classification
+    Based on the correlated findings, the attack type was identified and
+    documented.
+
+  Step 7 - Report Preparation
+    Findings, interpretation, conclusions, and recommendations were compiled
+    into this report.
+
+================================================================================
+5. ANALYSIS & FINDINGS
+================================================================================
+
+5.1 System Log Analysis (system_log.txt)
+-----------------------------------------
+
+  Timestamp             Level     Event
+  -------------------   -------   ----------------------------------------------
+  2026-03-05 09:40:12   INFO      User 'student' logged in successfully.
+  2026-03-05 09:42:33   WARNING   Multiple failed login attempts for 'admin'.
+  2026-03-05 09:45:10   INFO      File 'invoice.pdf' downloaded from IP
+                                  185.234.217.55.
+  2026-03-05 09:46:01   ALERT     Suspicious executable 'update.exe' detected.
+  2026-03-05 09:47:15   INFO      Outbound connection established to IP
+                                  185.234.217.55.
+  2026-03-05 09:50:22   ERROR     Unauthorised privilege escalation attempt
+                                  detected.
+
+  Key Observations:
+    - A suspicious file (invoice.pdf) was downloaded from an external IP
+      (185.234.217.55) shortly after login.
+    - An executable file (update.exe) was detected immediately after the
+      download, indicating it was likely bundled with or dropped by the PDF.
+    - An outbound connection back to the same external IP (185.234.217.55)
+      was established within two minutes — consistent with Command and Control
+      (C2) callback behaviour.
+    - A privilege escalation attempt was detected shortly after, suggesting the
+      malware attempted to gain elevated system access.
+    - Multiple failed login attempts for 'admin' around the same timeframe may
+      indicate a brute-force attempt or credential stuffing as part of the
+      broader attack.
+
+5.2 File Information Analysis (file_info.txt)
+----------------------------------------------
+
+  Attribute       Value
+  -----------     ---------------------------------------------------------
+  Filename        update.exe
+  File Type       Executable (PE)
+  Size            2.3 MB
+  Source URL      http://secure-update-check.com/update.exe
+  MD5 Hash        9e107d9d372bb6826bd81d3542a419d6
+
+  Key Observations:
+    - The domain 'secure-update-check.com' mimics a legitimate software update
+      service, a common social engineering tactic used in phishing campaigns.
+    - The file is an executable (update.exe) disguised as a system update,
+      which the user would be unlikely to question.
+    - The MD5 hash (9e107d9d372bb6826bd81d3542a419d6) should be cross-referenced
+      with threat intelligence databases (e.g., VirusTotal, MalwareBazaar) to
+      confirm whether this is a known malware sample.
+
+5.3 User Report Analysis (user_report.txt)
+-------------------------------------------
+
+  The user stated:
+    - They downloaded what they believed was an invoice file from an email.
+    - After downloading, the system became noticeably slow.
+    - Unknown pop-ups appeared and the system behaved abnormally.
+
+  Key Observations:
+    - The user's account of downloading an "invoice" from an email aligns with
+      the system log entry showing invoice.pdf downloaded from IP 185.234.217.55.
+    - System slowness and pop-ups are consistent with malware execution following
+      the download.
+    - The user was unaware that the attachment was malicious, indicating a
+      successful phishing attack leveraging social engineering.
+
+================================================================================
+6. INTERPRETATION
+================================================================================
+
+The evidence collectively points to a phishing-based malware infection with the
+following attack chain:
+
+  Phase 1 - Initial Access (Phishing)
+    The attacker sent a phishing email containing a link or attachment
+    disguised as an invoice. The user downloaded invoice.pdf, which served as
+    the initial delivery mechanism.
+
+  Phase 2 - Malware Delivery (Dropper)
+    The downloaded file dropped or triggered the download of update.exe from
+    the attacker-controlled server at 185.234.217.55 via the domain
+    secure-update-check.com. This executable is the malware payload.
+
+  Phase 3 - Execution & C2 Communication
+    update.exe was executed on the system. Within minutes, an outbound
+    connection was established back to 185.234.217.55, indicating Command and
+    Control (C2) communication — the malware was "phoning home" to the attacker.
+
+  Phase 4 - Privilege Escalation Attempt
+    The malware attempted to escalate privileges to gain deeper system access,
+    which was detected and logged by the system.
+
+  Attack Type: Phishing -> Malware Dropper -> C2 Callback -> Privilege Escalation
+
+  This is consistent with a Trojan-based malware attack, likely used for
+  data exfiltration, ransomware staging, or establishing persistent access.
+
+================================================================================
+7. CONCLUSION
+================================================================================
+
+The investigation confirms that the system was compromised through a phishing
+email that tricked the user into downloading a malicious file (invoice.pdf).
+This file subsequently dropped and executed a malware payload (update.exe),
+which established a Command and Control connection to a remote attacker-
+controlled server (185.234.217.55) and attempted to escalate privileges on the
+compromised machine.
+
+The attack exploited human trust (social engineering) rather than a technical
+software vulnerability, making user awareness the primary control gap.
+
+The system should be considered fully compromised and must be taken offline for
+remediation before being returned to production use.
+
+================================================================================
+8. RECOMMENDATIONS
+================================================================================
+
+  1. Immediate Containment
+     Isolate the affected machine from the network immediately to prevent
+     further C2 communication or lateral movement.
+
+  2. Malware Removal & System Reimaging
+     Perform a full malware scan. Given the severity of the compromise
+     (malware execution + privilege escalation attempt), a clean reimage of
+     the system is recommended.
+
+  3. Block Malicious IP and Domain
+     Add 185.234.217.55 and secure-update-check.com to the organisation's
+     firewall and DNS blocklists.
+
+  4. Password Reset
+     Reset credentials for all accounts on the compromised machine, especially
+     the 'admin' account, which was targeted in brute-force attempts.
+
+  5. User Awareness Training
+     Conduct phishing awareness training for all staff, with emphasis on not
+     downloading unexpected attachments or clicking unknown links in emails.
+
+  6. Email Filtering
+     Strengthen email gateway filters to detect and quarantine phishing emails
+     with suspicious attachments or links.
+
+  7. Endpoint Detection & Response (EDR)
+     Deploy or review EDR solutions to detect and block suspicious executable
+     behaviour in real time.
+
+  8. Principle of Least Privilege
+     Ensure user accounts operate with minimum required privileges to limit the
+     impact of future privilege escalation attempts.
+
+================================================================================
+9. APPENDIX
+================================================================================
+
+Appendix A - Raw System Log (system_log.txt)
+---------------------------------------------
+[2026-03-05 09:40:12] INFO: User login successful - user: student
+[2026-03-05 09:42:33] WARNING: Multiple failed login attempts - user: admin
+[2026-03-05 09:45:10] INFO: File downloaded - filename: invoice.pdf - source IP: 185.234.217.55
+[2026-03-05 09:46:01] ALERT: Suspicious executable detected - filename: update.exe
+[2026-03-05 09:47:15] INFO: Outbound connection established - destination IP: 185.234.217.55
+[2026-03-05 09:50:22] ERROR: Unauthorized privilege escalation attempt detected
+
+Appendix B - File Metadata (file_info.txt)
+-------------------------------------------
+Filename: update.exe
+File Type: Executable
+Size: 2.3 MB
+Downloaded From: http://secure-update-check.com/update.exe
+Hash (MD5): 9e107d9d372bb6826bd81d3542a419d6
+
+Appendix C - User Statement (user_report.txt)
+----------------------------------------------
+User states that they downloaded an invoice file from an email.
+After that, the system became slow.
+Unknown pop-ups appeared and system behaved abnormally.
+
+================================================================================
+                                  END OF REPORT
+================================================================================

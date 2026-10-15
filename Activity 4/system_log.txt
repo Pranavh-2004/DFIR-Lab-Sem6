@@ -1,0 +1,6 @@
+[2026-03-05 09:40:12] INFO: User login successful - user: student
+[2026-03-05 09:42:33] WARNING: Multiple failed login attempts - user: admin
+[2026-03-05 09:45:10] INFO: File downloaded - filename: invoice.pdf - source IP: 185.234.217.55
+[2026-03-05 09:46:01] ALERT: Suspicious executable detected - filename: update.exe
+[2026-03-05 09:47:15] INFO: Outbound connection established - destination IP: 185.234.217.55
+[2026-03-05 09:50:22] ERROR: Unauthorized privilege escalation attempt detected

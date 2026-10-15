@@ -1,0 +1,45 @@
+Return-Path: <ceo.james.wilson@nexacorp-global.com>
+Received: from webmail.nexacorp-global.com (webmail.nexacorp-global.com [91.108.56.133])
+        by mx.google.com with ESMTP id c6-20230601T154412.789.google.com;
+        Thu, 01 Jun 2023 15:44:12 +0530
+Received: from [91.108.56.133] (unknown)
+        by webmail.nexacorp-global.com with HTTP;
+        Thu, 01 Jun 2023 10:14:10 +0000
+Authentication-Results: mx.google.com;
+        dkim=fail (no key for signature) header.i=@nexacorp-global.com;
+        spf=softfail (google.com: 91.108.56.133 is not a permitted sender for domain nexacorp-global.com) smtp.mailfrom=ceo.james.wilson@nexacorp-global.com;
+        dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=nexacorp-global.com
+Message-ID: <local-20230601154410.CEO.003@nexacorp-global.com>
+Date: Thu, 01 Jun 2023 15:44:10 +0530
+From: James Wilson - CEO <ceo.james.wilson@nexacorp-global.com>
+Reply-To: james.wilson.ceo.nexa@gmail.com
+To: accounts@nexacorp.com
+Subject: Confidential - Urgent Vendor Payment Needed Today
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Originating-IP: 91.108.56.133
+X-Mailer: RoundCube Webmail 1.4.2
+
+Hi Ravi,
+
+I'm currently in back-to-back client meetings and cannot take any calls. I need you to handle an urgent payment on my behalf right away.
+
+We have a critical vendor settlement that must go out TODAY before 4:30 PM or we face a contractual penalty of $18,000. Our finance head is travelling and unreachable.
+
+Please process an immediate wire transfer of $32,500 to the following account:
+
+Beneficiary: Orion Tech Supplies LLC
+Bank: Citibank NA, New York
+Account Number: 9874563210
+Routing Number: 021000089
+Reference: CEO-VENDOR-JUNE2023
+
+This is strictly confidential — please do not loop in anyone else or discuss internally. Do not call me as I am presenting to the board. Just reply to this email once done and I will follow up tonight.
+
+I appreciate your quick action on this.
+
+James Wilson
+Chief Executive Officer
+NexaCorp Pvt. Ltd.
+
+[NOTE FOR LAB: This is a SIMULATED CEO Fraud / BEC email created for academic forensics training only]

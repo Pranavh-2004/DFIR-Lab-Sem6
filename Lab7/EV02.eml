@@ -1,0 +1,44 @@
+Return-Path: <noreply@hdfc-secure-alert.net>
+Received: from mail-relay7.cheaphost-vps.cn (mail-relay7.cheaphost-vps.cn [222.186.34.91])
+        by mx.google.com with ESMTP id b4-20230601T112845.456.google.com;
+        Thu, 01 Jun 2023 11:28:45 +0530
+Received: from unknown-node-44.cheaphost-vps.cn ([222.186.34.91])
+        by mail-relay7.cheaphost-vps.cn with SMTP id q3-20230601111203;
+        Thu, 01 Jun 2023 05:58:45 +0000
+Authentication-Results: mx.google.com;
+        dkim=fail (signature verification failed) header.i=@hdfcbank.com;
+        spf=fail (google.com: domain of noreply@hdfc-secure-alert.net does not designate 222.186.34.91 as permitted sender) smtp.mailfrom=noreply@hdfc-secure-alert.net;
+        dmarc=fail (p=REJECT sp=REJECT dis=NONE) header.from=hdfcbank.com
+Message-ID: <56781234.20230601.cheaphost-vps.cn@hdfc-secure-alert.net>
+Date: Thu, 01 Jun 2023 11:28:40 +0530
+From: HDFC Bank Alerts <alerts@hdfcbank.com>
+To: customer@gmail.com
+Subject: URGENT: Your HDFC NetBanking Access Has Been Locked - Action Required
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+X-Originating-IP: 222.186.34.91
+X-Mailer: PHPMailer 5.2.0
+
+Dear Customer,
+
+Our security systems have detected multiple failed login attempts on your HDFC Bank NetBanking account. As a precaution, your account has been LOCKED.
+
+To restore access, you must complete identity verification within 12 HOURS. Failure to do so will result in your account being PERMANENTLY DISABLED.
+
+Click below to unlock your account now:
+
+>> UNLOCK MY ACCOUNT: http://hdfc-netbanking.hdfc-secure-alert.net/verify?ref=8821KPX <<
+
+Please keep the following ready:
+- Registered Mobile Number
+- NetBanking Customer ID
+- IPIN (Internet Banking Password)
+- OTP (will be sent to your mobile)
+
+This is a system-generated security alert. Do NOT share this email with anyone.
+
+Regards,
+HDFC Bank Security Team
+PhoneBanking: 1800-202-6161
+
+[NOTE FOR LAB: This is a SIMULATED phishing email created for academic forensics training only]

@@ -1,0 +1,45 @@
+Return-Path: <hr@nexacorp.com>
+Received: from mail.nexacorp.com (mail.nexacorp.com [103.21.58.20])
+        by mx.google.com with ESMTPS id a9-20230601T084532.123.google.com
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Jun 2023 08:45:32 +0530
+Received: from smtp.nexacorp.com ([103.21.58.21])
+        by mail.nexacorp.com with ESMTP id m1-20230601084531;
+        Thu, 01 Jun 2023 08:45:31 +0530
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nexacorp.com;
+        s=mail; h=from:to:subject:date:message-id;
+        bh=abc123xyz456def789ghi012jkl345mno678pqr901stu234vwx567yz=;
+        b=ValidSignatureABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmno==
+Authentication-Results: mx.google.com;
+        dkim=pass header.i=@nexacorp.com header.s=mail;
+        spf=pass (google.com: domain of hr@nexacorp.com designates 103.21.58.20 as permitted sender) smtp.mailfrom=hr@nexacorp.com;
+        dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=nexacorp.com
+Message-ID: <20230601084531.NEXA2023.001@nexacorp.com>
+Date: Thu, 01 Jun 2023 08:45:31 +0530
+From: NexaCorp HR Team <hr@nexacorp.com>
+To: All Employees <allstaff@nexacorp.com>
+Subject: Updated Work From Home Policy - June 2023
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Originating-IP: 103.21.58.21
+X-Mailer: Microsoft Outlook 16.0
+
+Dear Team,
+
+We are pleased to share an update to NexaCorp's Work From Home (WFH) policy effective from July 1, 2023. Please read the following changes carefully:
+
+1. Employees may work from home up to 3 days per week (previously 2 days).
+2. All remote work must be logged via the HR portal before 9:30 AM on the respective day.
+3. Mandatory in-office days are Tuesday and Thursday for all departments.
+4. Equipment requests for home office setup can be submitted through the IT helpdesk portal.
+
+To acknowledge receipt of this policy update, please log in to the employee portal at:
+https://portal.nexacorp.com/policy-ack
+
+For any queries, reach out to hr@nexacorp.com or call extension 1102.
+
+Best regards,
+Sarah Mitchell
+HR Business Partner
+NexaCorp Pvt. Ltd.
+Ph: +91-80-4567-1102

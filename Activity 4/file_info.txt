@@ -1,0 +1,5 @@
+Filename: update.exe
+File Type: Executable
+Size: 2.3 MB
+Downloaded From: http://secure-update-check.com/update.exe
+Hash (MD5): 9e107d9d372bb6826bd81d3542a419d6

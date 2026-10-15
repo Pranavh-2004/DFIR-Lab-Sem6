@@ -1,0 +1,21 @@
+Return-Path: <ceo.james.wilson@nexacorp-global.com>
+Received: from webmail.nexacorp-global.com (webmail.nexacorp-global.com [91.108.56.133])
+        by mx.google.com with ESMTP id c6-20230601T154412.789.google.com;
+        Thu, 01 Jun 2023 15:44:12 +0530
+Received: from [91.108.56.133] (unknown)
+        by webmail.nexacorp-global.com with HTTP;
+        Thu, 01 Jun 2023 10:14:10 +0000
+Authentication-Results: mx.google.com;
+        dkim=fail (no key for signature) header.i=@nexacorp-global.com;
+        spf=softfail (google.com: 91.108.56.133 is not a permitted sender for domain nexacorp-global.com) smtp.mailfrom=ceo.james.wilson@nexacorp-global.com;
+        dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=nexacorp-global.com
+Message-ID: <local-20230601154410.CEO.003@nexacorp-global.com>
+Date: Thu, 01 Jun 2023 15:44:10 +0530
+From: James Wilson - CEO <ceo.james.wilson@nexacorp-global.com>
+Reply-To: james.wilson.ceo.nexa@gmail.com
+To: accounts@nexacorp.com
+Subject: Confidential - Urgent Vendor Payment Needed Today
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Originating-IP: 91.108.56.133
+X-Mailer: RoundCube Webmail 1.4.2

@@ -1,0 +1,88 @@
+PESU TraceLabs CTF — CORE PROMPT
+
+forensic CTF. each user gets unique evidence.dd (80MB ext4). 6 qs × 200 = 1200 pts. total time: 3 hrs.
+answers/seeds/keys/flags all unique. flags AES-256. key = md5(answer+seed) → first 6 chars.
+
+--- CORE SOLVE FLOW ---
+1. find ANSWER (exact case, no modification)
+2. find SEED (same file, exactly 6 hex chars)
+3. key:
+echo -n "ANSWERSEED" | md5sum | cut -c1-6
+4. validate:
+grep -r "AUTH-PARTIAL" /mnt/evidence | grep "KEY_FIRST3"
+(first 3 chars must match)
+5. find encrypted flag in correct dir
+6. decrypt:
+cat FILE | openssl enc -d -aes-256-cbc -a -pbkdf2 -pass pass:"KEY"
+7. submit CFL{...}
+
+--- FAST ONE-LINER ---
+KEY=$(echo -n "ANSWERSEED" | md5sum | cut -c1-6) && cat FILE | openssl enc -d -aes-256-cbc -a -pbkdf2 -pass pass:"$KEY"
+
+--- Q MAPPING ---
+Q1: deleted jpg (autopsy) → exif SerialNumber[0:6] → system_recovery/
+Q2: chrome_history.db → cookies.session_id[0:6] → service_configs/
+Q3: SYSTEM_hive_export.reg → ProductId 3rd segment → windows_update/
+Q4: wireshark_conversations.csv → header Capture File Hash[0:6] → driver_packages/
+Q5: memory_analysis_report.txt → section5 CRED-001 offset → security_audit/
+Q6: recycle_store/ → .metadata Case Reference → task_scheduler/
+
+--- PATHS ---
+/home/analyst/ctf/evidence/evidence.dd
+sudo mount -o loop,ro /home/analyst/ctf/evidence/evidence.dd /mnt/evidence
+cd /mnt/evidence
+
+--- CORE TOOLS ---
+autopsy (deleted files)
+exiftool (image metadata)
+sqlite3 (browser db)
+grep/cat/less (text search)
+strings (binary extract)
+openssl (decrypt)
+ls -la (hidden files)
+hivesh (registry)
+
+--- COMMANDS ---
+ls -la
+pwd
+cd
+find /path -name "*.ext"
+cat file
+less file
+grep -i "keyword" file
+grep -ri "keyword" /path/
+strings file
+strings file | grep "keyword"
+sqlite3 file.db ".tables" "SELECT * FROM table;"
+exiftool file.jpg
+hivesh file → cd → ls → lsval
+echo -n "ANSWERSEED" | md5sum | cut -c1-6
+
+--- SYSLOG PATHS ---
+event_logs/
+prefetch_data/
+ntfs_journal/
+syslog_Q*.log
+
+--- FLAG INFO ---
+normal-looking files (.log .tmp .cfg .sys .bak .old)
+NO .enc extension
+6 decoy encrypted files
+200+ fake AUTH-PARTIAL entries
+
+--- SCORING ---
+200 per q
+hint1 -25
+hint2 -50
+rate limit:
+1-5 → 3s
+5-10 → 10s
+10+ → 30s + 5min lock
+
+--- STRATEGY ---
+everything per-user unique → no sharing
+no brute force
+ALWAYS validate key before decrypt
+seed always exactly 6 chars
+time budget: ~30 min per q
+if stuck >20 min → use hint1

@@ -1,0 +1,3 @@
+User states that they downloaded an invoice file from an email.
+After that, the system became slow.
+Unknown pop-ups appeared and system behaved abnormally.
